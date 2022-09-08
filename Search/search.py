@@ -167,7 +167,7 @@ def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
     if problem.isGoalState(start_state):
         return []
     frontier = util.PriorityQueue()
-    frontier.push((start_state, [], nullHeuristic(start_state, problem)), nullHeuristic(start_state, problem))
+    frontier.push((start_state, [], 0), heuristic(start_state, problem))
     explored = set()
     while not frontier.isEmpty():
         state, actions, cost = frontier.pop()
@@ -176,8 +176,8 @@ def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
         if state not in explored:
             for child_state, child_actions, child_cost in problem.getSuccessors(state): #This should work except nullHeuristic always gives values of 0
                 if child_state not in explored:
-                    child = (child_state, actions + [child_actions], cost + child_cost + nullHeuristic(child_state, problem))
-                    frontier.push(child, cost + child_cost + nullHeuristic(child_state, problem))
+                    child = (child_state, actions + [child_actions], cost + child_cost)# + heuristic(child_state, problem))
+                    frontier.push(child, cost + child_cost + heuristic(child_state, problem))
         explored.add(state)
     print('No solution found')
     return None
