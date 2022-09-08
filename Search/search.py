@@ -104,7 +104,7 @@ def depthFirstSearch(problem: SearchProblem):
                 child = (child_state, actions + [child_actions], cost + child_cost)
                 frontier.push(child)
     print('No solution found')
-    return None
+    return None #poo
 
 
 
