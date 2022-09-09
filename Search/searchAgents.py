@@ -335,7 +335,7 @@ class CornersProblem(search.SearchProblem):
             nextx, nexty = int(x + dx), int(y + dy)
             if not self.walls[nextx][nexty]:
                 nextState = (nextx, nexty)
-                cost = self.costFn(nextState)
+                cost = self.getCostOfActions(nextState)
                 successors.append( ( nextState, action, cost) )
 
         self._expanded += 1 # DO NOT CHANGE
@@ -372,7 +372,6 @@ def cornersHeuristic(state: Any, problem: CornersProblem):
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
     "*** YOUR CODE HERE ***"
-    
 
     return 0 # Default to trivial solution
 
