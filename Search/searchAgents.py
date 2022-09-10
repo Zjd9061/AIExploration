@@ -315,11 +315,6 @@ class CornersProblem(search.SearchProblem):
         """
         "*** YOUR CODE HERE ***"
         expCorners = list(state[1])
-
-        #for n in range(len(self.corners)):
-        #    if nextState == self.corners[n]:
-        #        if not expCorners[n]:
-        #            expCorners[n] =1
         corny = 0
         for n in range(4):
             corny = corny + expCorners[n]
@@ -357,7 +352,6 @@ class CornersProblem(search.SearchProblem):
                     if nextState == self.corners[n]:
                         if not expCorners[n]:
                             expCorners[n] =1
-                #cost = self.getCostOfActions(nextState)
                 successors.append(((nextState, tuple(expCorners)), action, cost))
 
         self._expanded += 1 # DO NOT CHANGE
@@ -396,7 +390,7 @@ def cornersHeuristic(state: Any, problem: CornersProblem):
     "*** YOUR CODE HERE ***"
     dislist = [0]
     pos, expCorners = state
-    for n in range(4):
+    for n in range(3):
         if expCorners[n] == 0:
             dislist.append(mazeDistance(pos, corners[n], problem.problemo))
 
@@ -495,12 +489,11 @@ def foodHeuristic(state: Tuple[Tuple, List[List]], problem: FoodSearchProblem):
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
     fudlist = foodGrid.asList()
-    dislist = [0]
+    dislist = [0] # initialized to 0 so it doesn't return a list of nothing just in case
 
     for n in fudlist:
         dislist.append(mazeDistance(position, n, problem.startingGameState))
-    
-    return max(dislist) # Default to trivial solution
+    return max(dislist) 
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
