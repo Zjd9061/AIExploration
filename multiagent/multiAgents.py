@@ -123,10 +123,10 @@ class MultiAgentSearchAgent(Agent):
 
 class MinimaxAgent(MultiAgentSearchAgent):
     """
-    Your minimax agent (question 2)
+      Your minimax agent (question 2)
     """
 
-    def getAction(self, gameState: GameState):
+    def getAction(self, gameState):
         """
         Returns the minimax action from the current gameState using self.depth
         and self.evaluationFunction.
@@ -150,137 +150,71 @@ class MinimaxAgent(MultiAgentSearchAgent):
         Returns whether or not the game state is a losing state
         """
         "*** YOUR CODE HERE ***"
-        #return self.max_agent(gameState, 0)#[0]
-        chosen_action = self.minimax(gameState, self.depth)#[1]
-        return chosen_action
-    
-    #def minimax(self, gameState, agentIndex, depth):
-    #    if depth is self.depth * gameState.getNumAgents() \
-    #            or gameState.isLose() or gameState.isWin():
-    #        return self.evaluationFunction(gameState)
-    #    if agentIndex is 0:
-    #        return self.maxfunc(gameState, agentIndex, depth)#[1]
-    #    else:
-    #        return self.minfunc(gameState, agentIndex, depth)#[1]
-
-    #def maxval(self, gameState, agentIndex, depth):
-    #    bestAction = ("max",-float("inf"))
-    #    for action in gameState.getLegalActions(agentIndex):
-    #        succAction = (action,self.minimax(gameState.generateSuccessor(agentIndex,action),
-    #                                  (depth + 1)%gameState.getNumAgents(),depth+1))
-    #        bestAction = max(bestAction,succAction,key=lambda x:x[1])
-    #    return bestAction
-
-    #def minval(self, gameState, agentIndex, depth):
-    #    bestAction = ("min",float("inf"))
-    #    for action in gameState.getLegalActions(agentIndex):
-    #        succAction = (action,self.minimax(gameState.generateSuccessor(agentIndex,action),
-    #                                  (depth + 1)%gameState.getNumAgents(),depth+1))
-    #        bestAction = min(bestAction,succAction,key=lambda x:x[1])
-    #    return bestAction
-
-
-    #def maxfunc(self, gameState, agentIndex, depth):
-    #    maxAction = -float("inf")
-    #    for action in gameState.getLegalActions(agentIndex):
-    #        successorAction = self.minimax(gameState.generateSuccessor(agentIndex, action), (depth+1)%gameState.getNumAgents(), depth+1)
-    #        maxAction = max(maxAction, successorAction)
-    #    return maxAction
-
-    #def minfunc(self, gameState, agentIndex, depth):
-    #    minAction = -float("inf")
-    #    for action in gameState.getLegalActions(agentIndex):
-    #        successorAction = self.minimax(gameState.generateSuccessor(agentIndex, action), (depth+1)%gameState.getNumAgents(), depth+1)
-    #        minAction = min(minAction, successorAction)
-    #    return minAction
-
-    def minimizer(self, game_state, depth, agent):
-        actions = game_state.getLegalActions(agent)
-        scores = []
-
-        for action in actions:
-            successor_game_state = game_state.generateSuccessor(agent, action)
-
-            if agent == game_state.getNumAgents() - 1:  # last ghost
-                scores.append(self.minimax(successor_game_state, depth - 1, agent=0, maximizing=True)[0])
-            else:
-                scores.append(self.minimax(successor_game_state, depth, agent=agent + 1, maximizing=False)[0])
-
-        min_score = min(scores)
-        min_indexes = [i for i, score in enumerate(scores) if score == min_score]
-        chosen_action = actions[random.choice(min_indexes)]
-
-        return min_score, chosen_action
-
-    def maximizer(self, game_state, depth, agent):
-        actions = game_state.getLegalActions(agent)
-        scores = []
-
-        for action in actions:
-            successor_game_state = game_state.generateSuccessor(agent, action)
-            scores.append(self.minimax(successor_game_state, depth, agent=agent + 1, maximizing=False)[0])
-
-        max_score = max(scores)
-        max_indexes = [i for i, score in enumerate(scores) if score == max_score]
-        chosen_action = actions[random.choice(max_indexes)]
-
-        return max_score, chosen_action
-    
-    def maxfunc(self, gameState, depth, agentIndex):
-        #move = gameState.getLegalActions(agentIndex)
-        scores = []
-
-        for action in gameState.getLegalActions(agentIndex):
-            successorAction = gameState.generateSuccessor(agentIndex, action)
-            scores.append(self.minimax(successorAction, depth, agentIndex + 1, maxormin=False))
-
-            maxAction = max(scores)
-        return maxAction
-
-    def minfunc(self, gameState, depth, agentIndex):
-        #move = gameState.getLegalActions(agentIndex)
-        scores = []
-
-        for action in gameState.getLegalActions(agentIndex):
-            successorAction = gameState.generateSuccessor(agentIndex, action)
-            scores.append(self.minimax(successorAction, depth, agentIndex + 1, maxormin=False))
-
-            minAction = min(scores)
-        return minAction
-
-
-    def minimax(self, game_state, depth, agentIndex=0, maxormin = True):
-        if depth == 0 or game_state.isWin() or game_state.isLose():
-            return self.evaluationFunction(game_state)#, Directions.STOP
-
-        if maxormin:
-            return self.maxAgent(game_state, depth, agentIndex)
-        else:
-            return self.minAgent(game_state, depth, agentIndex)
-
-    def minAgent(self, gameState, depth, agentIndex):
-        minmoves = []
-        for actions in gameState.getLegalActions(agentIndex):
-            nextAction = gameState.generateSuccessor(agentIndex, actions)
-
-            if agentIndex == gameState.getNumAgents() - 1:
-                minmoves.append(self.minimax(gameState, depth -1, 0, True)[0])
-            else:
-                minmoves.append(self.minimax(gameState, depth, agentIndex + 1, False)[0])
-
-       # bestMove = min(minmoves)
-        return min(minmoves)
-
-    def maxAgent(self, gameState, depth, agentIndex):
-        maxmoves = []
-        for actions in gameState.getLegalActions(agentIndex):
-            nextAction = gameState.generateSuccessor(agentIndex, actions)
-            maxmoves.append(self.minimax(gameState, depth, agentIndex + 1, False)[0])
-
-       # bestMove = min(minmoves)
-        return max(maxmoves)
 
         
+        result = self.minimax(gameState, 0, 0)
+
+        # Return the action from result
+        return self.minimax(gameState, 0, 0)[1] #runs minimax with game state only. returns the actions
+
+    def minimax(self, gameState, agentIndex, depth):
+
+        if len(gameState.getLegalActions(agentIndex)) == 0 or depth == self.depth: #if there are no legal actions or if the depth is fully explored
+            return gameState.getScore(), "" #return the score of the game
+        
+        if agentIndex < 1: #max function. For pacman
+            return self.maxfunc(gameState, agentIndex, depth)
+
+        else: #min function for ghosts
+            return self.minfunc(gameState, agentIndex, depth)
+    
+    def maxfunc(self, gameState, agentIndex, depth):
+        max_score = -float("inf") #initialize max score to negative infinity so any move is better to start
+        max_move = "" #initialize to empty action just in case there is no better move, will return something
+
+        # This is where you can see that this is a look ahead agent. It is looking at the successor states and evaluating them
+        for action in gameState.getLegalActions(agentIndex): #for legal actions
+            succ_index = agentIndex + 1 #successor index is not pacman
+            succ_depth = depth #successor depth starts at current depth
+
+            if succ_index == gameState.getNumAgents(): #if there is only pacman and one ghost
+                succ_index = 0 #set successor index to pacman
+                succ_depth = succ_depth +1 #depth increments by 1
+
+            score = self.minimax(gameState.generateSuccessor(agentIndex, action), succ_index, succ_depth)[0] #set the score to the score given by minimax function (recursively called) of the current agents, depth, game state
+
+            if score > max_score: #if the score given above is better than previous maximum score
+                max_score = score #update maximum score
+                max_move = action #update max move
+            
+        return max_score, max_move 
+
+    def minfunc(self, gameState, agentIndex, depth): #This is very similar to the max function but it simply checks if the score given by minimax is less than the previous minimum score
+        min_score = float("inf")
+        min_move = ""
+
+        for action in gameState.getLegalActions(agentIndex):
+            succ_index = agentIndex + 1
+            succ_depth = depth
+
+            if succ_index == gameState.getNumAgents():
+                succ_index = 0
+                succ_depth = succ_depth + 1
+
+            score = self.minimax(gameState.generateSuccessor(agentIndex, action), succ_index, succ_depth)[0]
+
+            if score < min_score:
+                min_score = score
+                min_move = action
+        
+        return min_score, min_move
+
+    # I struggled really hard with understanding how to write this on my own and was searching the internet for a few days for an explanation of how to implement minimax 
+    # that made sense to me.
+    # I couldn't find anything that I fully comprehended until I came across this github at https://github.com/khanhngg/CSC665-multi-agent-pacman/blob/master/multiagent/multiAgents.py
+    # Full disclosure: I heavily used this to understand how a minimax agent is actually written. If this is an issue, please let me know and I would be happy to meet with you.
+    # I hope I have demonstrated that with this example to work off of, I now comprehend how a minimax agent can be implemented
+
 
 
 class AlphaBetaAgent(MultiAgentSearchAgent):
