@@ -209,10 +209,10 @@ class MinimaxAgent(MultiAgentSearchAgent):
         
         return min_score, min_move
 
-    # I struggled really hard with understanding how to write this on my own and was searching the internet for a few days for an explanation of how to implement minimax 
+    # I struggled really hard with understanding how to write this on my own and was working on this while searching the internet for a few days for an explanation of how to implement minimax 
     # that made sense to me.
     # I couldn't find anything that I fully comprehended until I came across this github at https://github.com/khanhngg/CSC665-multi-agent-pacman/blob/master/multiagent/multiAgents.py
-    # Full disclosure: I heavily used this to understand how a minimax agent is actually written. If this is an issue, please let me know and I would be happy to meet with you.
+    # Full disclosure: I heavily used this to understand how a minimax agent can actually be written. If this is an issue, please let me know and I would be happy to meet with you.
     # I hope I have demonstrated that with this example to work off of, I now comprehend how a minimax agent can be implemented
 
 
